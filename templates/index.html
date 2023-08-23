@@ -5,36 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      body {
-        text-align: center;
+      * {
+        box-sizing: border-box;
       }
 
-      button {
+      .container {
+        text-align: center;
+        width: 350px;
+        margin: 0 auto;
+        height: 100vh;
+      }
+
+      button,
+      a {
         background-color: blue;
         color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      a {
+        text-decoration: none;
+        background-color: green;
+      }
+
+      .inner-cont {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #email-content{
+        border-radius: 6px;
+        width: 350px;
       }
     </style>
   </head>
   <body>
-    <h1>Email Spam Classifier</h1>
-    <form action="\predict" method="post">
-      <textarea
-        placeholder="Enter your email body..."
-        name="email-content"
-        id=""
-        cols="35"
-        rows="15"
-      >
-{{ email }}</textarea
-      >
-      <div><button>Check Spam</button>
-       <a href="\">Reset</a>
+    <div class="container">
+      <h1>Email Spam Classifier</h1>
+      <form action="\predict" method="post">
+        <textarea
+          placeholder="Enter your email body..."
+          name="email-content"
+          id="email-content"
+          cols="35"
+          rows="15"
+        >
+          {{ email }}
+        </textarea
+        >
+        <div class="inner-cont">
+          <button>Check Spam</button>
+          <a href="\">Reset</a>
+        </div>
+      </form>
+
+      <div>
+        {% if prediction == 1 %}
+        <h2 style="color: red">SPAM!!!</h2>
+        {% elif prediction == -1 %}
+        <h2 style="color: green">NOT A SPAM!</h2>
+        {% endif %}
       </div>
-    </form>
-    {% if prediction == 1 %}
-    <h2 style="color: red;">SPAM!!!</h2>
-    {% elif prediction == -1 %}
-    <h2 style="color: green;">NOT A SPAM!</h2>
-    {% endif %}
+    </div>
   </body>
 </html>
